@@ -3,6 +3,7 @@ import 'package:expenz_app/constant/constants.dart';
 import 'package:expenz_app/data/onboarding_data.dart';
 import 'package:expenz_app/screens/onboarding/front_page.dart';
 import 'package:expenz_app/screens/onboarding/shared_onboarding_screen.dart';
+import 'package:expenz_app/screens/user_data_screen.dart';
 import 'package:expenz_app/widgets/custom_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -72,19 +73,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     padding: const EdgeInsets.symmetric(
                       horizontal: kDefalutPadding,
                     ),
-                    child: GestureDetector(
-                      onTap: () {
-                        _controller.animateToPage(
-                          _controller.page!.toInt() + 1,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      child: CustomBtn(
-                        btnName: showDetailsPage ? "Get Started" : "Next",
-                        btnColor: kMainColor,
-                      ),
-                    ),
+                    child:
+                        !showDetailsPage
+                            ? GestureDetector(
+                              onTap: () {
+                                _controller.animateToPage(
+                                  _controller.page!.toInt() + 1,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeIn,
+                                );
+                              },
+                              child: CustomBtn(
+                                btnName:
+                                    showDetailsPage ? "Get Started" : "Next",
+                                btnColor: kMainColor,
+                              ),
+                            )
+                            : GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) => const UserDataScreen(),
+                                  ),
+                                );
+                              },
+                              child: CustomBtn(
+                                btnName:
+                                    showDetailsPage ? "Get Started" : "Next",
+                                btnColor: kMainColor,
+                              ),
+                            ),
                   ),
                 ),
               ],
