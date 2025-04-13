@@ -33,7 +33,7 @@ class SharedOnboardingScreen extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 20),
           Text(
             title,
             style: TextStyle(
