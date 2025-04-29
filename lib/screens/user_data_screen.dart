@@ -1,5 +1,7 @@
 import 'package:expenz_app/constant/colors.dart';
 import 'package:expenz_app/constant/constants.dart';
+import 'package:expenz_app/screens/main_screen.dart';
+import 'package:expenz_app/screens/user_service.dart';
 import 'package:expenz_app/widgets/custom_btn.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +150,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                       ),
                       SizedBox(height: 30),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             //valid
                             String username = _usernameController.text;
@@ -157,9 +159,29 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             String confirmPassword =
                                 _confirmPasswordController.text;
 
-                            if (kDebugMode) {
-                              print(
-                                "$username,$email,$password,$confirmPassword",
+                            // if (kDebugMode) {
+                            //   print(
+                            //     "$username,$email,$password,$confirmPassword",
+                            //   );
+                            // }
+
+                            await UserService.storeUserDetails(
+                              username: username,
+                              email: email,
+                              password: password,
+                              confirmPassword: confirmPassword,
+                              context: context,
+                            );
+
+                            //navigate to home screen
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const MainScreen();
+                                  },
+                                ),
                               );
                             }
                           }
