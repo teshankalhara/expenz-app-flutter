@@ -1,6 +1,7 @@
 import 'package:expenz_app/constant/colors.dart';
 import 'package:expenz_app/constant/constants.dart';
 import 'package:expenz_app/widgets/custom_btn.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class UserDataScreen extends StatefulWidget {
@@ -56,6 +57,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter Your Name";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: "Name",
@@ -73,6 +75,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter Your Email";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: "Email",
@@ -90,6 +93,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter Your Password";
                           }
+                          return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
@@ -108,6 +112,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter Your Confrim Password";
                           }
+                          return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
@@ -152,9 +157,11 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             String confirmPassword =
                                 _confirmPasswordController.text;
 
-                            print(
-                              "$username,$email,$password,$confirmPassword",
-                            );
+                            if (kDebugMode) {
+                              print(
+                                "$username,$email,$password,$confirmPassword",
+                              );
+                            }
                           }
                         },
                         child: const CustomBtn(
