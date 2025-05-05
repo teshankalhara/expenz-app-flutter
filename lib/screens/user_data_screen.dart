@@ -1,7 +1,7 @@
 import 'package:expenz_app/constant/colors.dart';
 import 'package:expenz_app/constant/constants.dart';
 import 'package:expenz_app/screens/main_screen.dart';
-import 'package:expenz_app/screens/user_service.dart';
+import 'package:expenz_app/services/user_service.dart';
 import 'package:expenz_app/widgets/custom_btn.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
