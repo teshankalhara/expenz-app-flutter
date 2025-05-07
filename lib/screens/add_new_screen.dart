@@ -18,6 +18,18 @@ class _AddNewScreenState extends State<AddNewScreen> {
   ExpenseCategory _expenseCategory = ExpenseCategory.health;
   IncomeCategory _incomeCategory = IncomeCategory.salary;
 
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _amountController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +37,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: kDefalutPadding),
+            padding: const EdgeInsets.only(top: kDefalutPadding),
             child: Stack(
               children: [
                 //tabs
@@ -143,7 +155,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                 ),
                 //user data form
                 Container(
-                  height: 300,
+                  height: MediaQuery.of(context).size.height * 0.60,
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.30,
                   ),
@@ -198,6 +210,49 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                     : _incomeCategory = value as IncomeCategory;
                               });
                             },
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: _titleController,
+                            decoration: InputDecoration(
+                              hintText: "Title",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: kDefalutPadding,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: _descriptionController,
+                            decoration: InputDecoration(
+                              hintText: "Description",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: kDefalutPadding,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: _amountController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: "Amount",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: kDefalutPadding,
+                              ),
+                            ),
                           ),
                         ],
                       ),
