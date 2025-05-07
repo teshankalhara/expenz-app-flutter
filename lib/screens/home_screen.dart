@@ -1,6 +1,7 @@
 import 'package:expenz_app/constant/colors.dart';
 import 'package:expenz_app/constant/constants.dart';
 import 'package:expenz_app/services/user_service.dart';
+import 'package:expenz_app/widgets/income_expence_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,13 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
           //main column
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.3,
               decoration: BoxDecoration(
                 // ignore: deprecated_member_use
-                color: kMainColor.withOpacity(0.20),
+                color: kMainColor.withOpacity(0.40),
                 borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
               child: Padding(
@@ -83,6 +84,24 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: kMainColor,
                             size: 32,
                           ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IncomeExpenceCard(
+                          title: "Income",
+                          amount: 1200,
+                          imageUrl: "assets/images/income.png",
+                          bgcolor: kGreen,
+                        ),
+                        IncomeExpenceCard(
+                          title: "Expense",
+                          amount: 2800,
+                          imageUrl: "assets/images/expense.png",
+                          bgcolor: kRed,
                         ),
                       ],
                     ),
