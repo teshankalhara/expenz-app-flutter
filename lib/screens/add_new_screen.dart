@@ -49,7 +49,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
       backgroundColor: _selected == 0 ? kRed : kGreen,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: kDefalutPadding),
+          padding: const EdgeInsets.only(top: kDefalutPadding),
           child: SingleChildScrollView(
             child: Stack(
               children: [
