@@ -63,7 +63,7 @@ class _IncomeExpenceCardState extends State<IncomeExpenceCard> {
                 Text(
                   "\$${widget.amount.toStringAsFixed(0)}",
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: kWhite,
                   ),
