@@ -59,32 +59,39 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.expenseList.length,
-                        itemBuilder: (context, index) {
-                          final expense = widget.expenseList[index];
-                          return Dismissible(
-                            key: ValueKey(expense),
-                            direction: DismissDirection.startToEnd,
-                            onDismissed: (direction) {
-                              setState(() {
-                                widget.onDismissedExpense(expense);
-                              });
-                            },
-                            child: ExpenseCard(
-                              title: expense.title,
-                              date: expense.date,
-                              amount: expense.amount,
-                              category: expense.category,
-                              description: expense.description,
-                              createdAt: expense.time,
+                      widget.expenseList.isEmpty
+                          ? const Center(
+                            child: Text(
+                              "No expenses found",
+                              style: TextStyle(fontSize: 16, color: kBlack),
                             ),
-                          );
-                        },
-                      ),
+                          )
+                          : ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: widget.expenseList.length,
+                            itemBuilder: (context, index) {
+                              final expense = widget.expenseList[index];
+                              return Dismissible(
+                                key: ValueKey(expense),
+                                direction: DismissDirection.startToEnd,
+                                onDismissed: (direction) {
+                                  setState(() {
+                                    widget.onDismissedExpense(expense);
+                                  });
+                                },
+                                child: ExpenseCard(
+                                  title: expense.title,
+                                  date: expense.date,
+                                  amount: expense.amount,
+                                  category: expense.category,
+                                  description: expense.description,
+                                  createdAt: expense.time,
+                                ),
+                              );
+                            },
+                          ),
                     ],
                   ),
                 ),
@@ -107,31 +114,38 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: widget.incomeList.length,
-                        itemBuilder: (context, index) {
-                          final income = widget.incomeList[index];
-                          return Dismissible(
-                            key: ValueKey(income),
-                            direction: DismissDirection.startToEnd,
-                            onDismissed: (direction) {
-                              setState(() {
-                                widget.onDismissedIncome(income);
-                              });
-                            },
-                            child: IncomeCard(
-                              title: income.title,
-                              date: income.date,
-                              amount: income.amount,
-                              category: income.category,
-                              description: income.description,
-                              createdAt: income.time,
+                      widget.incomeList.isEmpty
+                          ? const Center(
+                            child: Text(
+                              "No income found",
+                              style: TextStyle(fontSize: 16, color: kBlack),
                             ),
-                          );
-                        },
-                      ),
+                          )
+                          : ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: widget.incomeList.length,
+                            itemBuilder: (context, index) {
+                              final income = widget.incomeList[index];
+                              return Dismissible(
+                                key: ValueKey(income),
+                                direction: DismissDirection.startToEnd,
+                                onDismissed: (direction) {
+                                  setState(() {
+                                    widget.onDismissedIncome(income);
+                                  });
+                                },
+                                child: IncomeCard(
+                                  title: income.title,
+                                  date: income.date,
+                                  amount: income.amount,
+                                  category: income.category,
+                                  description: income.description,
+                                  createdAt: income.time,
+                                ),
+                              );
+                            },
+                          ),
                     ],
                   ),
                 ),
