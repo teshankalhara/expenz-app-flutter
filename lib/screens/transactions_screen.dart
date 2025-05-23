@@ -1,17 +1,24 @@
 import 'package:expenz_app/constant/colors.dart';
 import 'package:expenz_app/constant/constants.dart';
 import 'package:expenz_app/models/expence_model.dart';
+import 'package:expenz_app/models/income_model.dart';
 import 'package:expenz_app/widgets/expense_card.dart';
+import 'package:expenz_app/widgets/income_card.dart';
 import 'package:flutter/material.dart';
 
 class TransactionScreen extends StatefulWidget {
   final List<Expense> expenseList;
   final void Function(Expense) onDismissedExpense;
 
+  final List<Income> incomeList;
+  final void Function(Income) onDismissedIncome;
+
   const TransactionScreen({
     super.key,
     required this.expenseList,
     required this.onDismissedExpense,
+    required this.incomeList,
+    required this.onDismissedIncome,
   });
 
   @override
@@ -48,8 +55,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
               const SizedBox(height: 20),
 
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
+              Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -75,6 +81,53 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               category: expense.category,
                               description: expense.description,
                               createdAt: expense.time,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                "Income",
+                style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  color: kBlack,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: widget.incomeList.length,
+                        itemBuilder: (context, index) {
+                          final income = widget.incomeList[index];
+                          return Dismissible(
+                            key: ValueKey(income),
+                            direction: DismissDirection.startToEnd,
+                            onDismissed: (direction) {
+                              setState(() {
+                                widget.onDismissedIncome(income);
+                              });
+                            },
+                            child: IncomeCard(
+                              title: income.title,
+                              date: income.date,
+                              amount: income.amount,
+                              category: income.category,
+                              description: income.description,
+                              createdAt: income.time,
                             ),
                           );
                         },
