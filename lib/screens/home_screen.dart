@@ -38,11 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
 
-    totalIncome = widget.incomeList.fold(0.0, (sum, item) => sum + item.amount);
-    totalExpense = widget.expensesList.fold(
-      0.0,
-      (sum, item) => sum + item.amount,
-    );
+    setState(() {
+      for (int i = 0; i < widget.incomeList.length; i++) {
+        totalIncome += widget.incomeList[i].amount;
+      }
+      for (int i = 0; i < widget.expensesList.length; i++) {
+        totalExpense += widget.expensesList[i].amount;
+      }
+    });
 
     super.initState();
   }
