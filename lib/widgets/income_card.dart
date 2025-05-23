@@ -25,7 +25,7 @@ class IncomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -43,8 +43,8 @@ class IncomeCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 60,
+                width: 60,
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
@@ -53,6 +53,7 @@ class IncomeCard extends StatelessWidget {
                   incomeCategoryImages[category]!,
                   width: 20,
                   height: 20,
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(width: 10),
@@ -67,8 +68,19 @@ class IncomeCard extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(
+                    width: 150,
+                    child: Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: kGrey,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   Text(
-                    // DateFormat.jm().format(date),
                     DateFormat.yMMMd().format(date),
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
