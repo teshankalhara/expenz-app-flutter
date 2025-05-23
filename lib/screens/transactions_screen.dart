@@ -6,8 +6,13 @@ import 'package:flutter/material.dart';
 
 class TransactionScreen extends StatefulWidget {
   final List<Expense> expenseList;
+  final void Function(Expense) onDismissedExpense;
 
-  const TransactionScreen({super.key, required this.expenseList});
+  const TransactionScreen({
+    super.key,
+    required this.expenseList,
+    required this.onDismissedExpense,
+  });
 
   @override
   State<TransactionScreen> createState() => _TransactionScreenState();
@@ -58,6 +63,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           return Dismissible(
                             key: ValueKey(expense),
                             direction: DismissDirection.startToEnd,
+                            onDismissed: (direction) {
+                              setState(() {
+                                widget.onDismissedExpense(expense);
+                              });
+                            },
                             child: ExpenseCard(
                               title: expense.title,
                               date: expense.date,
