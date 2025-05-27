@@ -29,6 +29,8 @@ class _AddNewScreenState extends State<AddNewScreen> {
   DateTime _selectedDate = DateTime.now();
   DateTime _selectedTime = DateTime.now();
 
+  final _formKey = GlobalKey<FormState>();
+
   //text controllers
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
@@ -193,6 +195,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                     children: [
                       //category selector from dropdown
                       Form(
+                        key: _formKey,
                         child: Column(
                           children: [
                             const SizedBox(height: 10),
@@ -258,6 +261,11 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                   horizontal: 20,
                                 ),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please Enter Valid Title";
+                                }
+                              },
                             ),
                             const SizedBox(height: 10),
 
@@ -274,6 +282,11 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                   horizontal: 20,
                                 ),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please Enter Valid Description";
+                                }
+                              },
                             ),
                             const SizedBox(height: 10),
 
@@ -291,6 +304,15 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                   horizontal: 20,
                                 ),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please Enter a Amount";
+                                }
+                                double? amount = double.tryParse(value);
+                                if (amount == null || amount <= 0) {
+                                  return "Please Enter Valid Amount";
+                                }
+                              },
                             ),
                             const SizedBox(height: 10),
 
@@ -359,7 +381,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
 
                             const SizedBox(height: 10),
 
-                            //Date picker
+                            //Time picker
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -430,63 +452,65 @@ class _AddNewScreenState extends State<AddNewScreen> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () async {
-                                if (_selected == 0) {
-                                  //create new expense
-                                  List<Expense> loadedExpenses =
-                                      await ExpenseService().loadExpenses();
-                                  Expense expense = Expense(
-                                    id:
-                                        loadedExpenses.length +
-                                        1, // Calculate ID based on loaded expenses
-                                    title: _titleController.text,
-                                    amount:
-                                        _amountController.text.isEmpty
-                                            ? 0
-                                            : double.parse(
-                                              _amountController.text,
-                                            ),
-                                    category: _expenceCategory,
-                                    date: _selectedDate,
-                                    time: _selectedTime,
-                                    description: _descriptionController.text,
-                                  );
+                                if (_formKey.currentState!.validate()) {
+                                  if (_selected == 0) {
+                                    //create new expense
+                                    List<Expense> loadedExpenses =
+                                        await ExpenseService().loadExpenses();
+                                    Expense expense = Expense(
+                                      id:
+                                          loadedExpenses.length +
+                                          1, // Calculate ID based on loaded expenses
+                                      title: _titleController.text,
+                                      amount:
+                                          _amountController.text.isEmpty
+                                              ? 0
+                                              : double.parse(
+                                                _amountController.text,
+                                              ),
+                                      category: _expenceCategory,
+                                      date: _selectedDate,
+                                      time: _selectedTime,
+                                      description: _descriptionController.text,
+                                    );
 
-                                  //add expense to the list
+                                    //add expense to the list
 
-                                  widget.addExpense(expense);
+                                    widget.addExpense(expense);
 
-                                  //clear text fields
-                                  _titleController.clear();
-                                  _amountController.clear();
-                                  _descriptionController.clear();
-                                } else {
-                                  // Assuming a method to load income
-                                  List<Income> loadedIncome =
-                                      await IncomeServices().loadIncomes();
-                                  Income income = Income(
-                                    id:
-                                        loadedIncome.length +
-                                        1, // Calculate ID based on loaded income
-                                    title: _titleController.text,
-                                    amount:
-                                        _amountController.text.isEmpty
-                                            ? 0
-                                            : double.parse(
-                                              _amountController.text,
-                                            ),
-                                    category: _incomeCategory,
-                                    date: _selectedDate,
-                                    time: _selectedTime,
-                                    description: _descriptionController.text,
-                                  );
+                                    //clear text fields
+                                    _titleController.clear();
+                                    _amountController.clear();
+                                    _descriptionController.clear();
+                                  } else {
+                                    // Assuming a method to load income
+                                    List<Income> loadedIncome =
+                                        await IncomeServices().loadIncomes();
+                                    Income income = Income(
+                                      id:
+                                          loadedIncome.length +
+                                          1, // Calculate ID based on loaded income
+                                      title: _titleController.text,
+                                      amount:
+                                          _amountController.text.isEmpty
+                                              ? 0
+                                              : double.parse(
+                                                _amountController.text,
+                                              ),
+                                      category: _incomeCategory,
+                                      date: _selectedDate,
+                                      time: _selectedTime,
+                                      description: _descriptionController.text,
+                                    );
 
-                                  //add income to the list
-                                  widget.addIcome(income);
+                                    //add income to the list
+                                    widget.addIcome(income);
 
-                                  //clear text fields
-                                  _titleController.clear();
-                                  _amountController.clear();
-                                  _descriptionController.clear();
+                                    //clear text fields
+                                    _titleController.clear();
+                                    _amountController.clear();
+                                    _descriptionController.clear();
+                                  }
                                 }
                               },
                               child: CustomBtn(
