@@ -265,6 +265,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                 if (value!.isEmpty) {
                                   return "Please Enter Valid Title";
                                 }
+                                return null;
                               },
                             ),
                             const SizedBox(height: 10),
@@ -286,6 +287,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                 if (value!.isEmpty) {
                                   return "Please Enter Valid Description";
                                 }
+                                return null;
                               },
                             ),
                             const SizedBox(height: 10),
@@ -312,6 +314,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                 if (amount == null || amount <= 0) {
                                   return "Please Enter Valid Amount";
                                 }
+                                return null;
                               },
                             ),
                             const SizedBox(height: 10),
