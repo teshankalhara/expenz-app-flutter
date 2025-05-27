@@ -114,7 +114,12 @@ class IncomeServices {
         ),
       );
     } catch (e) {
-      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error on Deleting All Incomes!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 }
